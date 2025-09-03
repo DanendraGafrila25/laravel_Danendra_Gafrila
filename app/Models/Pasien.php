@@ -9,11 +9,7 @@ class Pasien extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'nama_pasien',
         'alamat',
@@ -21,9 +17,6 @@ class Pasien extends Model
         'id_rumah_sakit',
     ];
 
-    /**
-     * Get the rumah sakit that owns the pasien.
-     */
     public function rumahSakit()
     {
         return $this->belongsTo(RumahSakit::class, 'id_rumah_sakit');

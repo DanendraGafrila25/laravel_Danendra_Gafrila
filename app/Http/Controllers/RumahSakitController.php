@@ -8,26 +8,19 @@ use Illuminate\Support\Facades\Validator;
 
 class RumahSakitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $rumahSakits = RumahSakit::latest()->paginate(10);
         return view('rumah-sakits.index', compact('rumahSakits'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('rumah-sakits.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,25 +42,17 @@ class RumahSakitController extends Controller
             ->with('success', 'Rumah Sakit berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(RumahSakit $rumahSakit)
     {
         return view('rumah-sakits.show', compact('rumahSakit'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(RumahSakit $rumahSakit)
     {
         return view('rumah-sakits.edit', compact('rumahSakit'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, RumahSakit $rumahSakit)
     {
         $validator = Validator::make($request->all(), [
@@ -89,9 +74,7 @@ class RumahSakitController extends Controller
             ->with('success', 'Rumah Sakit berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage using AJAX.
-     */
+
     public function destroy(RumahSakit $rumahSakit)
     {
         try {
@@ -119,9 +102,6 @@ class RumahSakitController extends Controller
         }
     }
 
-    /**
-     * Get rumah sakit data for AJAX requests
-     */
     public function getRumahSakits()
     {
         $rumahSakits = RumahSakit::select('id', 'nama_rumah_sakit')->get();

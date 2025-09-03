@@ -9,14 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class PasienController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $query = Pasien::with('rumahSakit');
 
-        // Filter by Rumah Sakit if provided
+    
         if ($request->has('rumah_sakit') && $request->rumah_sakit != '') {
             $query->where('id_rumah_sakit', $request->rumah_sakit);
         }
@@ -27,18 +25,13 @@ class PasienController extends Controller
         return view('pasiens.index', compact('pasiens', 'rumahSakits'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $rumahSakits = RumahSakit::select('id', 'nama_rumah_sakit')->get();
         return view('pasiens.create', compact('rumahSakits'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -60,27 +53,20 @@ class PasienController extends Controller
             ->with('success', 'Data pasien berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Pasien $pasien)
     {
         $pasien->load('rumahSakit');
         return view('pasiens.show', compact('pasien'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Pasien $pasien)
     {
         $rumahSakits = RumahSakit::select('id', 'nama_rumah_sakit')->get();
         return view('pasiens.edit', compact('pasien', 'rumahSakits'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Pasien $pasien)
     {
         $validator = Validator::make($request->all(), [
@@ -102,9 +88,6 @@ class PasienController extends Controller
             ->with('success', 'Data pasien berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage using AJAX.
-     */
     public function destroy(Pasien $pasien)
     {
         try {
@@ -132,9 +115,7 @@ class PasienController extends Controller
         }
     }
 
-    /**
-     * Filter pasien by rumah sakit using AJAX
-     */
+
     public function filterByRumahSakit(Request $request)
     {
         $rumahSakitId = $request->get('rumah_sakit_id');
